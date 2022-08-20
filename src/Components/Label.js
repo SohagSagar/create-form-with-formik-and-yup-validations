@@ -4,7 +4,7 @@ const Label = ({children}) => {
     return (
         
             <div>
-                <label className='mr-3'>{children}</label>
+                <label className='mr-3 !mb-10'>{children}</label>
             </div>
         
     );
