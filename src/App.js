@@ -1,10 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
+import RegistrationForm from './Components/RegistrationForm';
 
 function App() {
   return (
-    <div >
-      <button class="btn">Button</button>
+    <div className='px-12'>
+      <RegistrationForm />
     </div>
   );
 }
