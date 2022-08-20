@@ -3,6 +3,8 @@ import React from 'react';
 import Label from './Label';
 import * as yup from "yup";
 import FieldErrorMessage from './FieldErrorMessage';
+import addTtoLocalStroage from './LocalStroage';
+import toast from 'react-hot-toast';
 
 const RegistrationForm = () => {
     const validationSchema = yup.object({
@@ -25,7 +27,8 @@ const RegistrationForm = () => {
         pinCode: yup.number().required("Field is Required!"),
         nationality:yup.string().required("Field is Required!"),
         meritalStatus:yup.string().required("Field is Required!"),
-    })
+    });
+    
     return (
         <div className='border rounded-lg  my-5 px-5'>
             <h1 className='text-center font-semibold text-lg py-2'>Registration Form</h1>
@@ -57,7 +60,9 @@ const RegistrationForm = () => {
                 }}
 
                 onSubmit={(values) => {
-                    console.log(values)
+                    console.log(values);
+                   const saveToLocalStroage= addTtoLocalStroage(values);
+                   saveToLocalStroage ? toast.success('Register Successful'): toast.error('Fail to register')
                 }}
             >
                 <Form>
