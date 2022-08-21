@@ -88,13 +88,13 @@ const RegistrationForm = ({ refreshUI, setRefreshUI }) => {
                                 {/* left side inputs */}
                                 <div className='mb-2'>
                                     <Label className="">Name<sup className='text-red-600'>*</sup></Label>
-                                    <Field type="text" name='name' placeholder="Type here" className="input input-bordered input-sm w-[300px] max-w-xs focus:outline-none mt-1 " />
+                                    <Field type="text" name='name' placeholder="Type your name" className="input input-bordered input-sm w-[300px] max-w-xs focus:outline-none mt-1 " />
                                     <div className='text-red-600'><small><ErrorMessage name='name' /></small></div>
                                 </div>
 
                                 <div className='mb-2'>
                                     <Label>Mobile</Label>
-                                    <Field type="number" name='mobile' placeholder="Type here" className="input input-bordered input-sm w-[300px] max-w-xs focus:outline-none mt-1 " />
+                                    <Field type="number" name='mobile' placeholder="Type mobile number" className="input input-bordered input-sm w-[300px] max-w-xs focus:outline-none mt-1 " />
                                     {/* <FieldErrorMessage name='mobile' /> */}
                                     {/* <ErrorMessage name="mobile" /> */}
                                     <div className='text-red-600'><small><ErrorMessage name='mobile' /></small></div>
@@ -112,7 +112,7 @@ const RegistrationForm = ({ refreshUI, setRefreshUI }) => {
 
                                     <div className='mb-2'>
                                         <Label>Sex<sup className='text-red-600'>*</sup></Label>
-                                        <Field name='gender' as="select" className="select select-bordered select-sm w-[300px] max-w-xs  focus:outline-none mt-1">
+                                        <Field name='gender' placeholder="Your Gender" as="select" className="select select-bordered select-sm w-[300px] max-w-xs  focus:outline-none mt-1">
                                             <option className='hidden'></option>
                                             <option value={'male'}>Male</option>
                                             <option value={'female'}>Female</option>
