@@ -1,12 +1,15 @@
-import { Field, Form, Formik, FormikProps,ErrorMessage } from 'formik';
+import { Field, Form, Formik, FormikProps, ErrorMessage } from 'formik';
 import React from 'react';
 import Label from './Label';
 import * as yup from "yup";
 import FieldErrorMessage from './FieldErrorMessage';
-import addTtoLocalStroage from './LocalStroage';
-import toast from 'react-hot-toast';
 
-const RegistrationForm = () => {
+import toast from 'react-hot-toast';
+import { addTtoLocalStroage } from './LocalStroage';
+
+const userID = Math.floor(10000000 + Math.random() * 10000000);
+
+const RegistrationForm = ({ refreshUI, setRefreshUI }) => {
     const validationSchema = yup.object({
         name: yup.string().required("Field is Required!"),
         mobile: yup.number('Number Expected').required("Mobile is Required!"),
@@ -25,10 +28,10 @@ const RegistrationForm = () => {
         occupation: yup.string().required("Field is Required!"),
         religion: yup.string().required("Field is Required!"),
         pinCode: yup.number().required("Field is Required!"),
-        nationality:yup.string().required("Field is Required!"),
-        meritalStatus:yup.string().required("Field is Required!"),
+        nationality: yup.string().required("Field is Required!"),
+        meritalStatus: yup.string().required("Field is Required!"),
     });
-    
+
     return (
         <div className='border rounded-lg  my-5 px-5'>
             <h1 className='text-center font-semibold text-lg py-2'>Registration Form</h1>
@@ -53,23 +56,32 @@ const RegistrationForm = () => {
                     pinCode: '',
                     occupation: '',
                     religion: '',
-                    nationality:'',
-                    meritalStatus:''
+                    nationality: '',
+                    meritalStatus: ''
 
 
                 }}
 
-                onSubmit={(values) => {
+                onSubmit={(values, { resetForm }) => {
                     console.log(values);
-                   const saveToLocalStroage= addTtoLocalStroage(values);
-                   saveToLocalStroage ? toast.success('Register Successful'): toast.error('Fail to register')
+                    const userInfo = { ...values, userID }
+                    const saveToLocalStroage = addTtoLocalStroage(userInfo);
+
+                    if (saveToLocalStroage) {
+                        toast.success('Register Successful');
+                        resetForm();
+                        setRefreshUI(!refreshUI)
+                    } else {
+                        toast.error('Fail to register');
+                    }
+
                 }}
             >
                 <Form>
 
                     <div className='mx-auto'>
                         {/* personal details starts */}
-                        <h4 className='text-md font-semibold mb-1'>Personal Details</h4><hr className='mb-2'/>
+                        <h4 className='text-md font-semibold mb-1'>Personal Details</h4><hr className='mb-2' />
 
                         <div className='grid sm:grid-cols-1 lg:grid-cols-[1fr,2fr]'>
                             <div>
@@ -136,7 +148,7 @@ const RegistrationForm = () => {
 
 
                         {/* contact details starts */}
-                        <h4 className='text-md font-semibold mb-1 mt-5'>Contact Details</h4><hr className='mb-2'/>
+                        <h4 className='text-md font-semibold mb-1 mt-5'>Contact Details</h4><hr className='mb-2' />
                         <div className='grid sm:grid-cols-1 lg:grid-cols-[1fr,2fr]'>
 
                             {/* left contents */}
@@ -179,7 +191,7 @@ const RegistrationForm = () => {
 
                         {/* address details starts */}
 
-                        <h4 className='text-md font-semibold mb-1 mt-5'>Address Details</h4><hr className='mb-2'/>
+                        <h4 className='text-md font-semibold mb-1 mt-5'>Address Details</h4><hr className='mb-2' />
                         <div className='grid sm:grid-cols-1 lg:grid-cols-[1fr,2fr]'>
                             <div>
                                 {/* left side inputs */}
@@ -229,7 +241,7 @@ const RegistrationForm = () => {
 
                         {/* others details starts */}
 
-                        <h4 className='text-md font-semibold mb-1 mt-5'>Others Details</h4><hr className='mb-2'/>
+                        <h4 className='text-md font-semibold mb-1 mt-5'>Others Details</h4><hr className='mb-2' />
                         <div className='grid sm:grid-cols-1 lg:grid-cols-3 mb-5 justify-items-start'>
 
                             <div className=''>
@@ -270,7 +282,7 @@ const RegistrationForm = () => {
                         </div>
 
                         <div className='flex justify-center py-6 gap-2'>
-                            <button className="btn btn-sm lg:btn-wide rounded-full bg-red-600 border-none text-white normal-case">Cancel</button>
+                            <button type='reset' className="btn btn-sm lg:btn-wide rounded-full bg-red-600 border-none text-white normal-case">Reset</button>
                             <button type='submit' className="btn btn-sm lg:btn-wide rounded-full bg-green-600 border-none text-white normal-case">Submit</button>
                         </div>
 
